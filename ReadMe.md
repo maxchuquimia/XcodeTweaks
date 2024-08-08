@@ -15,3 +15,7 @@ Make Xcode instantly build again when it says “Build again to continue” - an
 | received multiple target ended messages for target ID | Clean, then Build, Test or Launch your project again |
 | targetID 423 not found in activeTargets | Clean, then Build, Test or Launch your project again |
 | CodeSign failed with a nonzero exit code | Clean, then Build, Test or Launch your project again |
+
+## Installation
+
+This uses AppleScript to run commands in Xcode and therefore requires Accessibility and Automation permissions. It would be better for you to inspect the source and build it yourself for safety, however if you are feeling trusting today you can get a notarized version from [the releases page](https://github.com/maxchuquimia/XcodeTweaks/releases)

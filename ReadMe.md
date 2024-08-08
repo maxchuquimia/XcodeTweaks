@@ -2,7 +2,7 @@
 
 # XcodeTweaks
 
-Make Xcode instantly build again when it says “Build again to continue” - and other similar fixes that we shouldn't have to care about.
+A macOS app to make Xcode instantly build again when Xcode fails with an error that includes “Build again to continue” - and other similar fixes that we shouldn't have to care about.
 
 <img src="https://raw.githubusercontent.com/maxchuquimia/XcodeTweaks/master/Marketing/screenshot1.png" />
 
@@ -18,4 +18,7 @@ Make Xcode instantly build again when it says “Build again to continue” - an
 
 ## Installation
 
-This uses AppleScript to run commands in Xcode and therefore requires Accessibility and Automation permissions. It would be better for you to inspect the source and build it yourself for safety, however if you are feeling trusting today you can get a notarized version from [the releases page](https://github.com/maxchuquimia/XcodeTweaks/releases)
+This uses AppleScript to run commands in Xcode and therefore requires Accessibility and Automation permissions. XcodeTweaks is not sandboxed.
+It would be better for you to inspect the source and build it yourself for safety, however if you are feeling trusting today you can get a notarized version from [the releases page](https://github.com/maxchuquimia/XcodeTweaks/releases)
+<img src="https://raw.githubusercontent.com/maxchuquimia/XcodeTweaks/master/Marketing/screenshot2.png" height="300"/> <img src="https://raw.githubusercontent.com/maxchuquimia/XcodeTweaks/master/Marketing/screenshot3.png" height="300"/>
+

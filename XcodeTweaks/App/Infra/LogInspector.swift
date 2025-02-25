@@ -133,17 +133,38 @@ private extension LogInspector {
 
     func searchForKnownBuildFailures() async throws -> Set<BuildInformation> {
         let log = try await xcActivityLog()
-        var failures: Set<BuildInformation> = []
 
-        for failure in BuildInformation.allCases {
-            // Search backwards as errors are usually at the end of the log
-            guard let regex = failure.buildLogSearchRegex else { continue }
-            if log.range(of: regex, options: [.backwards, .regularExpression]) != nil {
+        actor FailureStorage {
+            var failures = Set<BuildInformation>()
+
+            func insert(_ failure: BuildInformation) {
                 failures.insert(failure)
             }
         }
 
-        return failures
+        let storage = FailureStorage()
+
+        await withTaskGroup(of: BuildInformation?.self) { group in
+            for failure in BuildInformation.allCases {
+                guard let regex = failure.buildLogSearchRegex else { continue }
+
+                group.addTask {
+                    if log.range(of: regex, options: [.backwards, .regularExpression]) != nil {
+                        return failure
+                    }
+
+                    return nil
+                }
+            }
+
+            for await foundFailure in group {
+                if let failure = foundFailure {
+                    await storage.insert(failure)
+                }
+            }
+        }
+
+        return await storage.failures
     }
 
     func hasTestResultFile() async throws -> Bool {

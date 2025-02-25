@@ -8,11 +8,13 @@
 import Foundation
 import AppKit
 import SwiftUI
+import Combine
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var window: NSWindow?
     private var settingsWindow: NSWindow?
+    private var cancellables = Set<AnyCancellable>()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         showMainWindow()
@@ -52,6 +54,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             settingsWindow?.center()
             settingsWindow?.setFrameAutosaveName("Settings Window")
             settingsWindow?.contentView = NSHostingView(rootView: SettingsWindowView())
+
+            NotificationCenter.default.publisher(for: NSWindow.willCloseNotification, object: settingsWindow)
+                .sink { [weak self] _ in
+                    self?.settingsWindow = nil
+                }
+                .store(in: &cancellables)
         }
 
         settingsWindow?.makeKeyAndOrderFront(self)

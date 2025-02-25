@@ -21,6 +21,7 @@ extension MainWindowView {
         private var cancellables: Set<AnyCancellable> = []
         private var projects: [XcodeProjectState.Location: XcodeProjectState] = [:]
         private let processWatcher = ProcessWatcher()
+        private let updateChecker = GitHubUpdateChecker(repoSlug: "maxchuquimia/XcodeTweaks")
 
         init() {
             setup()
@@ -33,7 +34,7 @@ extension MainWindowView {
 extension MainWindowView.ViewModel {
 
     func onClickOpenPreferences() {
-        NSApp.sendAction(#selector(AppDelegate.showSettings(sender:)), to: nil, from: nil)
+        (NSApp.delegate as? AppDelegate)?.showSettings(sender: nil)
     }
 
 }
@@ -54,8 +55,12 @@ private extension MainWindowView.ViewModel {
             .assign(to: \.automaticallyResolvedFailures, on: self)
             .store(in: &cancellables)
 
-        appendConsole("Listening for notifications", .dim)
+        appendConsole("XcodeTweaks \(updateChecker.currentVersion) is listening for notifications", .dim)
         // loadConsoleForMarketingScreenshots()
+
+        Task(priority: .low) {
+            await checkForUpdates()
+        }
     }
 
     func handle(notification: XcodeTweaksNotification) async {
@@ -212,6 +217,22 @@ private extension MainWindowView.ViewModel {
 
     func incrementResolutionCounter() {
         PersistedValues.shared.automaticallyResolvedFailures += 1
+    }
+
+    func checkForUpdates() async {
+        do {
+            guard let update = try await updateChecker.checkForUpdate() else { return }
+            appendConsole("XcodeTweaks \(update.latestVersion) is available, download it:", .normal)
+            appendConsole(update.webURL.absoluteString, .normal)
+
+            if !update.releaseNotes.isEmpty {
+                for note in update.releaseNotes.components(separatedBy: "\n") {
+                    appendConsole(note, .dim)
+                }
+            }
+        } catch {
+            appendConsole("Error checking for updates: \(error)", .dim)
+        }
     }
 
     #if DEBUG

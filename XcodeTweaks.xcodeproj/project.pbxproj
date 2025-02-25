@@ -30,6 +30,7 @@
 		514D170A2C284CB400B0D389 /* IDEAlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514D17092C284CB400B0D389 /* IDEAlertMessage.swift */; };
 		517C0A1B2C2E858700327B26 /* ConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517C0A1A2C2E858700327B26 /* ConsoleView.swift */; };
 		517C0A1D2C33714000327B26 /* XcodeProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517C0A1C2C33714000327B26 /* XcodeProjectState.swift */; };
+		518560442D6D8C9500487969 /* GitHubUpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518560432D6D8C9500487969 /* GitHubUpdateChecker.swift */; };
 		51BE267E2C5A4F8000CD94E4 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51BE267D2C5A4F8000CD94E4 /* Application.xib */; };
 		51BE26802C5B0D5C00CD94E4 /* PersistedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BE267F2C5B0D5C00CD94E4 /* PersistedValues.swift */; };
 		51C507562C6358BF009F71D5 /* SetupInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C507552C6358BF009F71D5 /* SetupInstructionsView.swift */; };
@@ -91,6 +92,7 @@
 		514D17092C284CB400B0D389 /* IDEAlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDEAlertMessage.swift; sourceTree = "<group>"; };
 		517C0A1A2C2E858700327B26 /* ConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleView.swift; sourceTree = "<group>"; };
 		517C0A1C2C33714000327B26 /* XcodeProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeProjectState.swift; sourceTree = "<group>"; };
+		518560432D6D8C9500487969 /* GitHubUpdateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUpdateChecker.swift; sourceTree = "<group>"; };
 		51BE267D2C5A4F8000CD94E4 /* Application.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
 		51BE267F2C5B0D5C00CD94E4 /* PersistedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedValues.swift; sourceTree = "<group>"; };
 		51C507552C6358BF009F71D5 /* SetupInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupInstructionsView.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				517C0A1C2C33714000327B26 /* XcodeProjectState.swift */,
 				514D17032C27F88900B0D389 /* LogInspector.swift */,
 				51E6F5802C33C73200403C5A /* ProcessWatcher.swift */,
+				518560432D6D8C9500487969 /* GitHubUpdateChecker.swift */,
 			);
 			path = Infra;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				514D16C32C26AA6100B0D389 /* AppDelegate.swift in Sources */,
 				514D16E52C26D97800B0D389 /* NSRunningApplication.swift in Sources */,
 				514D16E32C26D8B500B0D389 /* XcodeTweaksNotification.swift in Sources */,
+				518560442D6D8C9500487969 /* GitHubUpdateChecker.swift in Sources */,
 				514D17022C27F78100B0D389 /* FileManager.swift in Sources */,
 				514D16E92C26E1EB00B0D389 /* AppleScript.swift in Sources */,
 				51E6F5812C33C73200403C5A /* ProcessWatcher.swift in Sources */,

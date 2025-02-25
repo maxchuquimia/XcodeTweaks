@@ -106,8 +106,27 @@ private extension LogInspector {
 
     func xcActivityLog() async throws -> String {
         let urls = try await filesCreatedAfterMinimumDate(in: buildDirectory, type: "xcactivitylog", retry: true)
-        guard let url = urls.first else { throw "No logs found" }
-        let data = try Data(contentsOf: url).gunzipped()
+        guard var url = urls.first else { throw "No logs found" }
+        try await waitForFileToBeUnlocked(at: url.path)
+
+        var retriesRemaining = 10
+        var data: Data? = nil
+        while data == nil && retriesRemaining > 0 {
+            do {
+                try autoreleasepool {
+                    let compressed = try Data(contentsOf: url)
+                    data = try compressed.gunzipped()
+                }
+
+                break // Success
+            } catch {
+                try await Task.sleep(for: .seconds(0.25))
+            }
+
+            retriesRemaining -= 1
+        }
+
+        guard let data else { throw "Failed to decompress log" }
         guard let log = String(data: data, encoding: .utf8) else { throw "Failed to read log" }
         return log
     }
@@ -147,6 +166,31 @@ private extension LogInspector {
         }
 
         return []
+    }
+
+    func waitForFileToBeUnlocked(at path: String) async throws {
+        for _ in 0..<10 {
+            if isFileLocked(at: path) {
+                try await Task.sleep(for: .seconds(0.25))
+            } else {
+                return
+            }
+        }
+
+        throw "File at \(path) is still locked after waiting"
+    }
+
+    func isFileLocked(at path: String) -> Bool {
+        let fileURL = URL(fileURLWithPath: path)
+
+        do {
+            // Try to get exclusive access
+            let fileHandle = try FileHandle(forWritingTo: fileURL)
+            fileHandle.closeFile()
+            return false // File is not locked
+        } catch {
+            return true // File is locked or in use
+        }
     }
 
 }

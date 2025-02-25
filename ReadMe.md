@@ -28,7 +28,7 @@ This uses AppleScript to run commands in Xcode and therefore requires Accessibil
 
 It would be safest for you to inspect the source and build it yourself, however if you are feeling trusting today you can get a notarized version from [the releases page](https://github.com/maxchuquimia/XcodeTweaks/releases) 🎉
 
-If you are building yourself, note that you'll need to set _Signing & Capabilities > Team_ to your own so that accessibility settings are retained between launches. 
+If you are building yourself, note that you'll need to set _Signing & Capabilities > Team_ to your own so that accessibility settings are retained between launches.
 
 ## Motivation
 
@@ -37,3 +37,9 @@ If you are building yourself, note that you'll need to set _Signing & Capabiliti
 All the errors above are not related to our code and are easy to solve - but we still need to go to the build log and remember what steps to take for each one.
 
 Also, Xcode 15.3 started appending some errors with "Build again to continue". Read more about how this project was started [here](https://itnext.io/make-xcode-instantly-build-again-when-it-says-build-again-to-continue-part-1-38300674395e).
+
+## Possible Future Tweaks / Features
+
+- Searching for colors in an xcasset catalogue by hex value, like [colorset](https://github.com/maxchuquimia/homebrew-scripts?tab=readme-ov-file#colorset) can.
+- Make it a menu bar app
+- Add a pause button

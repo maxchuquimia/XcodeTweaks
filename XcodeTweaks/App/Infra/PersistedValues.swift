@@ -12,6 +12,9 @@ final class PersistedValues {
 
     static let shared = PersistedValues()
 
+    @SingletonUserDefault("killXCBBuildService", defaultValue: true)
+    var killXCBBuildService: Bool
+
     @SingletonUserDefault("fixWhenRunningTests", defaultValue: true)
     var fixWhenRunningTests: Bool
 
@@ -44,6 +47,9 @@ final class PersistedValues {
 
     @SingletonUserDefault("automaticallyResolvedFailures", defaultValue: 0)
     var automaticallyResolvedFailures: Int
+
+    @SingletonUserDefault("automaticallyKilledXCBBuildServices", defaultValue: 0)
+    var automaticallyKilledXCBBuildServices: Int
 
     private init() { }
 

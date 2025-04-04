@@ -17,6 +17,10 @@ struct MainWindowView: View {
         viewModel.automaticallyResolvedFailures
     }
 
+    var xcbBuildServiceCount: Int {
+        viewModel.automaticallyKilledXCBBuildServices
+    }
+
     var body: some View {
         VStack {
             if !systemViewModel.isComplete {
@@ -35,7 +39,11 @@ struct MainWindowView: View {
     var mainContent: some View {
         VStack {
             HStack {
-                Text("XcodeTweaks has responded to **\(failureCount)** failure\(failureCount == 1 ? "" : "s") for you \(failureCount > 0 ? "🎉" : "")")
+                if PersistedValues.shared.killXCBBuildService {
+                    Text("XcodeTweaks has killed XCBBuildService **\(xcbBuildServiceCount)** time\(xcbBuildServiceCount == 1 ? "" : "s") for you \(xcbBuildServiceCount > 0 ? "🎉" : "")")
+                } else {
+                    Text("XcodeTweaks has responded to **\(failureCount)** failure\(failureCount == 1 ? "" : "s") for you \(failureCount > 0 ? "🎉" : "")")
+                }
                 Spacer()
 
                 Button("Settings") {

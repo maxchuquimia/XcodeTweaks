@@ -20,6 +20,8 @@ XcodeTweaks aims to perform automatic resolutions as per [this resolution reckon
 
 <img src="https://raw.githubusercontent.com/maxchuquimia/XcodeTweaks/master/Marketing/screenshot2.png" height="400" />
 
+⭐️ **NEW!** XcodeTweaks can kill `XCBBuildService` after every build to _preemptively_ avoid the above failiures. Disabled by default, enable it in Settings.
+
 ## Installation
 
 This uses AppleScript to run commands in Xcode and therefore requires Accessibility and Automation permissions. XcodeTweaks is not sandboxed.
@@ -43,3 +45,6 @@ Also, Xcode 15.3 started appending some errors with "Build again to continue". R
 - Searching for colors in an xcasset catalogue by hex value, like [colorset](https://github.com/maxchuquimia/homebrew-scripts?tab=readme-ov-file#colorset) can.
 - Make it a menu bar app
 - Add a pause button
+- Automatic old DerivedData cleanup
+- Android Studio-esque triple shift
+- Hotwiring version numbers in plist for running older Xcodes on newer macOS versions

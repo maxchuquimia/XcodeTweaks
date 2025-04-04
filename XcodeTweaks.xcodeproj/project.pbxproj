@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5142E2B42D9FE2FB00C1CE00 /* ShellScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5142E2B32D9FE2FB00C1CE00 /* ShellScript.swift */; };
 		51453B772C60561300D1768C /* SystemPermissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51453B762C60561300D1768C /* SystemPermissionsViewModel.swift */; };
 		51453B792C60744400D1768C /* SystemPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51453B782C60744400D1768C /* SystemPermissionsView.swift */; };
 		514D16B42C26A76A00B0D389 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514D16B32C26A76A00B0D389 /* MainWindowView.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5142E2B32D9FE2FB00C1CE00 /* ShellScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellScript.swift; sourceTree = "<group>"; };
 		51453B762C60561300D1768C /* SystemPermissionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPermissionsViewModel.swift; sourceTree = "<group>"; };
 		51453B782C60744400D1768C /* SystemPermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPermissionsView.swift; sourceTree = "<group>"; };
 		514D16AE2C26A76A00B0D389 /* XcodeTweaks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeTweaks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				514D16E82C26E1EB00B0D389 /* AppleScript.swift */,
+				5142E2B32D9FE2FB00C1CE00 /* ShellScript.swift */,
 				51BE267F2C5B0D5C00CD94E4 /* PersistedValues.swift */,
 				517C0A1C2C33714000327B26 /* XcodeProjectState.swift */,
 				514D17032C27F88900B0D389 /* LogInspector.swift */,
@@ -406,6 +409,7 @@
 				51C507582C6358D1009F71D5 /* SetupInstructionsViewModel.swift in Sources */,
 				51BE26802C5B0D5C00CD94E4 /* PersistedValues.swift in Sources */,
 				514D16B42C26A76A00B0D389 /* MainWindowView.swift in Sources */,
+				5142E2B42D9FE2FB00C1CE00 /* ShellScript.swift in Sources */,
 				514D16E12C26D70900B0D389 /* DirectRun.swift in Sources */,
 				514D16C12C26A7EA00B0D389 /* main.swift in Sources */,
 				517C0A1D2C33714000327B26 /* XcodeProjectState.swift in Sources */,

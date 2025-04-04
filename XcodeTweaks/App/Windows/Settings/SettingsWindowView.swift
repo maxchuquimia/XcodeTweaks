@@ -17,6 +17,13 @@ struct SettingsWindowView: View {
             VStack  {
                 VStack(alignment: .leading, spacing: 28) {
                     VStack(alignment: .leading) {
+                        Text("Prevent failures by…")
+                            .font(.headline)
+                        StandardToggle(isOn: $viewModel.killXCBBuildService, label: "Killing XCBBuildService", help: "This will kill XCBBuildService after every build. May have unintended side effects.")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                    VStack(alignment: .leading) {
                         Text("Retry after known failures when…")
                             .font(.headline)
                         StandardToggle(isOn: .constant(true), label: "Building")

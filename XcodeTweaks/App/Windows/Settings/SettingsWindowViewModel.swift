@@ -13,6 +13,7 @@ extension SettingsWindowView {
     
     final class ViewModel: ObservableObject {
 
+        @Published var killXCBBuildService: Bool = false
         @Published var fixWhenRunningTests: Bool = true
         @Published var fixWhenLaunching: Bool = true
         @Published var allowRerunningIndividualTests: Bool = true
@@ -45,6 +46,7 @@ extension SettingsWindowView.ViewModel {
 private extension SettingsWindowView.ViewModel {
 
     func setup() {
+        store($killXCBBuildService, \.killXCBBuildService, as: \.killXCBBuildService)
         store($fixWhenRunningTests, \.fixWhenRunningTests, as: \.fixWhenRunningTests)
         store($fixWhenLaunching, \.fixWhenLaunching, as: \.fixWhenLaunching)
         store($allowRerunningIndividualTests, \.allowRerunningIndividualTests, as: \.allowRerunningIndividualTests)

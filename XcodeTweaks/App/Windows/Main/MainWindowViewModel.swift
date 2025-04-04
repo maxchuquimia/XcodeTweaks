@@ -17,6 +17,7 @@ extension MainWindowView {
 
         @Published var consoleLines: [ConsoleLine] = []
         @Published var automaticallyResolvedFailures: Int = 0
+        @Published var automaticallyKilledXCBBuildServices: Int = 0
 
         private var cancellables: Set<AnyCancellable> = []
         private var projects: [XcodeProjectState.Location: XcodeProjectState] = [:]
@@ -55,6 +56,17 @@ private extension MainWindowView.ViewModel {
             .assign(to: \.automaticallyResolvedFailures, on: self)
             .store(in: &cancellables)
 
+        PersistedValues.shared.$automaticallyKilledXCBBuildServices
+            .assign(to: \.automaticallyKilledXCBBuildServices, on: self)
+            .store(in: &cancellables)
+
+        PersistedValues.shared.$killXCBBuildService
+            .sink { [weak self] _ in
+                // Affects stats label
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
+
         appendConsole("XcodeTweaks \(updateChecker.currentVersion) is listening for notifications", .dim)
         // loadConsoleForMarketingScreenshots()
 
@@ -75,18 +87,29 @@ private extension MainWindowView.ViewModel {
             case .buildSucceeded:
                 appendConsole(environment,"Build succeeded", .dim)
                 getProject(for: environment).numberOfRetriesRemaining = XcodeProjectState.maxRetries
+                try await handleXcodeProcessCompleted(environment: notification.environment)
             case .buildFailed:
                 appendConsole(environment,"Build failed", .dim)
                 try await handleFailure(environment: notification.environment)
+                try await handleXcodeProcessCompleted(environment: notification.environment)
             case .testStarted:
                 appendConsole(environment,"Test started", .dim)
             case .testSucceeded:
                 appendConsole(environment,"Test succeeded", .dim)
+                try await handleXcodeProcessCompleted(environment: notification.environment)
             case .testFailed:
                 appendConsole(environment, "Test failed", .dim)
+                try await handleXcodeProcessCompleted(environment: notification.environment)
             }
         } catch {
             appendConsole(environment, "Error: \(error)", .error)
+        }
+    }
+
+    func handleXcodeProcessCompleted(environment: XcodeTweaksNotification.Environment) async throws {
+        if PersistedValues.shared.killXCBBuildService {
+            try perform(.killXCBBuildService(), for: environment)
+            incrementXCBBuildServiceKilledCounter()
         }
     }
 
@@ -164,6 +187,14 @@ private extension MainWindowView.ViewModel {
         }
     }
 
+    func perform(_ script: ShellScript, for environment: XcodeTweaksNotification.Environment) throws {
+        appendConsole(environment, "Running \"\(script.name)\"", .normal)
+        let error = script.execute()
+        if let error {
+            throw error
+        }
+    }
+
     func appendConsole(_ environment: XcodeTweaksNotification.Environment, _ message: String, _ style: ConsoleLine.Style) {
         appendConsole("\(environment.projectName ?? "Unknown project") - \(message)", style)
     }
@@ -217,6 +248,10 @@ private extension MainWindowView.ViewModel {
 
     func incrementResolutionCounter() {
         PersistedValues.shared.automaticallyResolvedFailures += 1
+    }
+
+    func incrementXCBBuildServiceKilledCounter() {
+        PersistedValues.shared.automaticallyKilledXCBBuildServices += 1
     }
 
     func checkForUpdates() async {

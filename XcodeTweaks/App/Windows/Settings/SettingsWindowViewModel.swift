@@ -45,17 +45,18 @@ extension SettingsWindowView.ViewModel {
 private extension SettingsWindowView.ViewModel {
 
     func setup() {
-        store($fixWhenRunningTests, as: \.fixWhenRunningTests)
-        store($fixWhenLaunching, as: \.fixWhenLaunching)
-        store($allowRerunningIndividualTests, as: \.allowRerunningIndividualTests)
-        store($allowKeyboardShortcuts, as: \.allowKeyboardShortcuts)
-        store($allowCleaning, as: \.allowCleaning)
-        store($allowResolvingPackages, as: \.allowResolvingPackages)
-        store($allowRestartXcode, as: \.allowRestartXcode)
-        store($useWindowNames, as: \.useWindowNames)
+        store($fixWhenRunningTests, \.fixWhenRunningTests, as: \.fixWhenRunningTests)
+        store($fixWhenLaunching, \.fixWhenLaunching, as: \.fixWhenLaunching)
+        store($allowRerunningIndividualTests, \.allowRerunningIndividualTests, as: \.allowRerunningIndividualTests)
+        store($allowKeyboardShortcuts, \.allowKeyboardShortcuts, as: \.allowKeyboardShortcuts)
+        store($allowCleaning, \.allowCleaning, as: \.allowCleaning)
+        store($allowResolvingPackages, \.allowResolvingPackages, as: \.allowResolvingPackages)
+        store($allowRestartXcode, \.allowRestartXcode, as: \.allowRestartXcode)
+        store($useWindowNames, \.useWindowNames, as: \.useWindowNames)
     }
 
-    func store<T>(_ value: Published<T>.Publisher, as keyPath: ReferenceWritableKeyPath<PersistedValues, T>) {
+    func store<T>(_ value: Published<T>.Publisher, _ thisKeyPath: ReferenceWritableKeyPath<SettingsWindowView.ViewModel, T>, as keyPath: ReferenceWritableKeyPath<PersistedValues, T>) {
+        self[keyPath: thisKeyPath] = PersistedValues.shared[keyPath: keyPath]
         value
             .assign(to: keyPath, on: PersistedValues.shared)
             .store(in: &cancellables)

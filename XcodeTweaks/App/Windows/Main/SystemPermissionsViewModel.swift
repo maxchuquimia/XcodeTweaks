@@ -57,6 +57,10 @@ extension SystemPermissionsView.ViewModel {
         PersistedValues.shared.didTestSystemEventsAccess = true
     }
 
+    func skip() {
+        isComplete = true
+    }
+
     func requestPermissions() {
         permissionsTask?.cancel()
         permissionsTask = Task(priority: .userInitiated) {

@@ -53,6 +53,12 @@ struct SystemPermissionsView: View {
                         Button("Try again") {
                             viewModel.requestPermissions()
                         }
+
+                        if viewModel.error != nil {
+                            Button("Skip until next launch…") {
+                                viewModel.skip()
+                            }
+                        }
                     } else {
                         Button("Grant Permissions") {
                             viewModel.requestPermissions()
